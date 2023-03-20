@@ -113,7 +113,7 @@ class Login(Resource):
             # Make response with cookie
             resp = make_response("Logged in", 200)
             # resp.set_cookie("jwt", token, expires=expires, samesite="Lax", secure=True, httponly=False)
-            resp.set_cookie("jwt", token, expires=expires, samesite="Lax", secure=True, httponly=True, domain="api.ask-stuwer.be")
+            resp.set_cookie("jwt", token, expires=expires, samesite="Strict", secure=True, httponly=True, domain="api.ask-stuwer.be")
             return resp
 
 
@@ -185,7 +185,7 @@ def auth_valid(func):
             # func_response.set_cookie('jwt', token, expires=expire, httponly=True, samesite="Strict")
             # func_response.set_cookie("jwt", token, expires=expire, samesite="None", secure=True, httponly=False) # TODO: Production
             # func_response.set_cookie("jwt", token, expires=expire, samesite="Lax", secure=True, httponly=False)
-            func_response.set_cookie("jwt", token, expires=expire, samesite="Lax", secure=True, httponly=True, domain="api.ask-stuwer.be")
+            func_response.set_cookie("jwt", token, expires=expire, samesite="Strict", secure=True, httponly=True, domain="api.ask-stuwer.be")
         except AttributeError:
             raise AttributeError(
                 "Wrapped function should return a Response, but got {} instead", type(func_response))
@@ -211,7 +211,7 @@ class AuthCheck(Resource):
         # Decode token
         token_status, token_contents = decode_token(jwt_token)
 
-        print(token_status, token_contents, flush=True)
+        # print(token_status, token_contents, flush=True)
 
         # Check if token is valid
         if not token_status == TokenState.VALID:
