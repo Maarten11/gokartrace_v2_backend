@@ -1,0 +1,9 @@
+flask
+flask_restful
+psycopg2==2.9.3
+SQLAlchemy
+Flask-SQLAlchemy
+pyjwt
+bcrypt
+flask-cors
+gunicorn
