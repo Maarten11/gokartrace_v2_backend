@@ -90,14 +90,14 @@ class Login(Resource):
         password = form_data["password"]
         # FIXME Not finished
 
-        print(user, password, flush=True)
+        # print(user, password, flush=True)
 
         # Fetch and check password
         with sessions() as session:
             # Fetch user object from database matching username
             result = session.execute(select(User).where(User.username == user)).scalar_one_or_none()
             session.commit()
-            print(result, type(result), "Result", flush=True)
+            # print(result, type(result), "Result", flush=True)
 
             # No user found -> error
             if result is None:
@@ -113,7 +113,7 @@ class Login(Resource):
             # Make response with cookie
             resp = make_response("Logged in", 200)
             # resp.set_cookie("jwt", token, expires=expires, samesite="Lax", secure=True, httponly=False)
-            resp.set_cookie("jwt", token, expires=expires, samesite="Lax", secure=True, httponly=True, domain="gokartrace.ask-stuwer.be")
+            resp.set_cookie("jwt", token, expires=expires, samesite="Lax", secure=True, httponly=True, domain="api.ask-stuwer.be")
             return resp
 
 
@@ -185,7 +185,7 @@ def auth_valid(func):
             # func_response.set_cookie('jwt', token, expires=expire, httponly=True, samesite="Strict")
             # func_response.set_cookie("jwt", token, expires=expire, samesite="None", secure=True, httponly=False) # TODO: Production
             # func_response.set_cookie("jwt", token, expires=expire, samesite="Lax", secure=True, httponly=False)
-            func_response.set_cookie("jwt", token, expires=expire, samesite="Lax", secure=True, httponly=True, domain="gokartrace.ask-stuwer.be")
+            func_response.set_cookie("jwt", token, expires=expire, samesite="Lax", secure=True, httponly=True, domain="api.ask-stuwer.be")
         except AttributeError:
             raise AttributeError(
                 "Wrapped function should return a Response, but got {} instead", type(func_response))
