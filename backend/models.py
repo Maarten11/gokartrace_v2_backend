@@ -19,7 +19,7 @@ postgres_db = environ["POSTGRES"]
 postgres_port = environ["POSTGRES_PORT"]
 
 connect_str = f"postgresql://{postgres_user}:{postgres_password}@db:{postgres_port}/{postgres_db}"
-print(connect_str, flush=True)
+# print(connect_str, flush=True)
 engine = create_engine(connect_str, pool_size=THREADS)
 
 
@@ -82,10 +82,10 @@ def init_default_user():
         # Check if default user already exists
         result = session.execute(select(User).where(User.username == username)).scalar_one_or_none()
 
-        print(result, flush=True)
+        # print(result, flush=True)
 
         if result:
-            print("Denied", flush=True)
+            # print("Denied", flush=True)
             return
 
         # Initialise default user
@@ -95,12 +95,12 @@ def init_default_user():
         query = text("INSERT INTO users VALUES(DEFAULT, :username, :password);")\
         .bindparams(username = username, password = password)
 
-        print(query, flush=True)
+        # print(query, flush=True)
 
         session.execute(query)
 
         session.commit()
 
-        print("Default user created", flush=True)
+        # print("Default user created", flush=True)
 
 

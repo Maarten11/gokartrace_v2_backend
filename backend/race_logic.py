@@ -35,7 +35,7 @@ class Status(Resource):
                 result = session.execute(query)
             session.commit()
 
-            print(result, flush=True)
+            # print(result, flush=True)
 
             return make_response("Status Updated", 200)
 
@@ -112,7 +112,7 @@ class CountRound(Resource):
             lastlap = now(), laps = :lapcount WHERE teamname=:team").bindparams(lapcount=lap_count, team=team_name)
             result = session.execute(t)
             # session.commit()
-            print(result, flush=True)
+            # print(result, flush=True)
 
             session.commit()
 
